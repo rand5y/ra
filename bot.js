@@ -18,7 +18,7 @@ client.user.setStatus("dnd")
 
 client.on('message', function(msg) {
     
-    if(msg.content.startsWith (prefix  +'سيرفر','server')) {
+    if(msg.content.startsWith (prefix  +'server')) {
       let embed = new Discord.RichEmbed()
       .setColor('RANDOM')
       .setThumbnail(msg.guild.iconURL)
@@ -47,13 +47,16 @@ client.on('message', message => {
 
  message.author.sendMessage(`
  **
-كيك ، -kick --> طرد عضو 
-باند ، -ban --> حظر عضو 
-مسح ، -clear --> مسح الشات
-اسكت ، -mute --> اعطاء شخص ميوت
-تكلم -unmute --> فك من شخص ميوت
+
+
+
+-ban --> حظر عضو
+-kick --> طرد عضو 
+-clear --> مسح الشات
+-mute --> اعطاء شخص ميوت
+-unmute --> فك من شخص ميوت
 -obc --> لنشر برودكاست لكل اعضاء السيرفر 
-سيرفر ، -server --> معلومات السيرفر 
+-server --> معلومات السيرفر 
 **
 `);
 
@@ -65,7 +68,7 @@ client.on('message', message => {
      
      let command = message.content.split(" ")[0];
      
-     if (command === "اسكت","mute") {
+     if (command === "mute") {
            if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply("** لا يوجد لديك برمشن 'Manage Roles' **").catch(console.error);
      let user = message.mentions.users.first();
      let modlog = client.channels.find('name', 'mute-log');
@@ -99,7 +102,7 @@ client.on('message', message => {
      
      let command = message.content.split(" ")[0];
      
-     if (command === "تكلم","unmute") {
+     if (command === "unmute") {
            if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply("** لا يوجد لديك برمشن 'Manage Roles' **").catch(console.error);
      let user = message.mentions.users.first();
      let modlog = client.channels.find('name', 'mute-log');
@@ -137,7 +140,7 @@ client.on('message', message => {
    
      let args = message.content.split(" ").slice(1);
    
-     if (command == "كيك,'kick") {
+     if (command == "'kick") {
                   if(!message.channel.guild) return message.reply('** This command only for servers**');
             
      if(!message.guild.member(message.author).hasPermission("KICK_MEMBERS")) return message.reply("**You Don't Have ` KICK_MEMBERS ` Permission**");
@@ -174,7 +177,7 @@ client.on('message', message => {
     let Reason = message.content.split(" ").slice(3).join(" ");
     let messageArray = message.content.split(" ");
     let time = messageArray[2];
-    if(message.content.startsWith(prefix + "باند'،ban")) {
+    if(message.content.startsWith(prefix + "ban")) {
       if (!message.channel.guild) return;
        if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.channel.send("**ماعندك برمشن :X:**");
        if(!User) message.channel.send("Mention Someone");
@@ -229,7 +232,7 @@ client.on("message", message => {
   command = command.slice(prefix.length);
   let args = msg.content.split(" ").slice(1);
  
-    if(command === "مسح","clear") {
+    if(command === "clear") {
         const emoji = client.emojis.find("name", "wastebasket")
     let textxt = args.slice(0).join("");
     if(msg.member.hasPermission("MANAGE_MESSAGES")) {
@@ -246,4 +249,21 @@ client.on("message", message => {
 }
 });
 
+client.on('message',async message => {
+  if(message.content.startsWith("setvoice")) {
+  if(!message.guild.member(message.author).hasPermissions('MANAGE_CHANNELS')) return message.reply('❌ **ليس لديك الصلاحيات الكافية**');
+  if(!message.guild.member(client.user).hasPermissions(['MANAGE_CHANNELS','MANAGE_ROLES_OR_PERMISSIONS'])) return message.reply('❌ **ليس معي الصلاحيات الكافية**');
+  message.channel.send('✅| **تم عمل الروم بنجاح**');
+  message.guild.createChannel(`Voice Online : [ ${message.guild.members.filter(m => m.voiceChannel).size} ]` , 'voice').then(c => {
+    console.log(`Voice online channel setup for guild: \n ${message.guild.name}`);
+    c.overwritePermissions(message.guild.id, {
+      CONNECT: false,
+      SPEAK: false
+    });
+    setInterval(() => {
+      c.setName(`Voice Online : [ ${message.guild.members.filter(m => m.voiceChannel).size} ]`)
+    },1000);
+  });
+  }
+});
 client.login(process.env.BOT_TOKEN);
