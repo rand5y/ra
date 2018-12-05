@@ -68,7 +68,7 @@ client.on('message', message => {
      
      let command = message.content.split(" ")[0];
      
-     if (command === "mute") {
+     if (command === "-mute") {
            if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply("** لا يوجد لديك برمشن 'Manage Roles' **").catch(console.error);
      let user = message.mentions.users.first();
      let modlog = client.channels.find('name', 'mute-log');
@@ -102,7 +102,7 @@ client.on('message', message => {
      
      let command = message.content.split(" ")[0];
      
-     if (command === "unmute") {
+     if (command === "-unmute") {
            if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply("** لا يوجد لديك برمشن 'Manage Roles' **").catch(console.error);
      let user = message.mentions.users.first();
      let modlog = client.channels.find('name', 'mute-log');
@@ -215,8 +215,8 @@ client.on("message", message => {
                          if (!message.member.hasPermission("CONNECT"))  return;
                             let embed4 = new Discord.RichEmbed()
              .setDescription("**:white_check_mark: | جاري ارسال البرودكاست**")
-           .addField("مرسل البرودكاست" , message.author)
-          .addField("نص البرودكاست" ,args.join("  "))
+           
+          .
                             .addField("عدد الاعضاء المرسل لهم :busts_in_silhouette:" ,` **[${message.guild.memberCount}]**`,true)
                                                             .setColor("#008000")
                                 message.channel.sendEmbed(embed4);
@@ -250,7 +250,7 @@ client.on("message", message => {
 });
 
 client.on('message',async message => {
-  if(message.content.startsWith("setvoice")) {
+  if(message.content.startsWith("-setvoice")) {
   if(!message.guild.member(message.author).hasPermissions('MANAGE_CHANNELS')) return message.reply('❌ **ليس لديك الصلاحيات الكافية**');
   if(!message.guild.member(client.user).hasPermissions(['MANAGE_CHANNELS','MANAGE_ROLES_OR_PERMISSIONS'])) return message.reply('❌ **ليس معي الصلاحيات الكافية**');
   message.channel.send('✅| **تم عمل الروم بنجاح**');
