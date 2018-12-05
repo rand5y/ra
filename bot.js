@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const fs = require('fs')
 const moment = require('moment')
-
+const data = require ('data')
 const ms = require('ms')
 const prefix = '-';
 const jimp = require('jimp');
