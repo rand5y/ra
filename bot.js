@@ -250,7 +250,7 @@ client.on('message', message => {
    
      let args = message.content.split(" ").slice(1);
    
-     if (command == "kick") {
+     if (command == "-kick") {
                   if(!message.channel.guild) return message.reply('** This command only for servers**');
             
      if(!message.guild.member(message.author).hasPermission("KICK_MEMBERS")) return message.reply("**You Don't Have ` KICK_MEMBERS ` Permission**");
@@ -280,42 +280,7 @@ client.on('message', message => {
    }
    });
    
-     client.on('message', async message => {
-  
-    let date = moment().format('Do MMMM YYYY , hh:mm');
-    let User = message.mentions.users.first();
-    let Reason = message.content.split(" ").slice(3).join(" ");
-    let messageArray = message.content.split(" ");
-    let time = messageArray[2];
-    if(message.content.startsWith(prefix + "ban")) {
-      if (!message.channel.guild) return;
-       if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.channel.send("**ماعندك برمشن :X:**");
-       if(!User) message.channel.send("Mention Someone");
-       if(User.id === client.user.id) return message.channel.send("** :X: ماتقدر تبند البوت**");
-       if(User.id === message.guild.owner.id) return message.channel.send("** :X:لااستطيع تبنيد الاونر **");
-       if(!time) return message.channel.send("**- اكتب الوقت**");
-       if(!time.match(/[1-60][s,m,h,d,w]/g)) return message.channel.send('** :X: البوت لايدعم هذا الوقت**');
-      if(!Reason) Reason = "Null";
-       let banEmbed = new Discord.RichEmbed()
-       .setAuthor(`New Banned User !`)
-       .setThumbnail(message.guild.iconURL || message.guild.avatarURL)
-       .addField('- Banned By: ',message.author.tag,true)
-       .addField('- Banned User:', `${User}`)
-       .addField('- Reason:',Reason,true)
-       .addField('- Time & Date:', `${message.createdAt}`)
-       .addField('- Duration:',time,true)
-       .setFooter(message.author.tag,message.author.avatarURL);
-       let logchannel = message.guild.channels.find(`name`, "log");
-  if(!logchannel) return message.channel.send("Can't find log channel.");
-  incidentchannel.send(banEmbed);
-  message.channel.send(`**:white_check_mark: ${User} has been banned :airplane: **`).then(() => message.guild.member(User).ban({reason: Reason}))
-  User.send(`**:airplane: You are has been banned in ${message.guild.name} reason: ${Reason} by: ${message.author.tag} :airplane:**`)
-       .then(() => { setTimeout(() => {
-           message.guild.unban(User);
-       }, mmss(time));
-    });
-   }
-  });
+    
 client.on("message", message => {
 
             if (message.content.startsWith(prefix + "obc")) {
@@ -328,6 +293,45 @@ client.on("message", message => {
  message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'all').size}\` : عدد الاعضاء المستلمين`); 
  message.delete(); 
 };     
+});
+//////
+client.on('message', message => {
+  if (message.author.x5bz) return;
+  if (!message.content.startsWith(prefix)) return;
+ 
+  let command = message.content.split(" ")[0];
+  command = command.slice(prefix.length);
+ 
+  let args = message.content.split(" ").slice(1);
+ 
+  if (command == "-ban") {
+               if(!message.channel.guild) return message.reply('** This command only for servers**');
+         
+  if(!message.guild.member(message.author).hasPermission("BAN_MEMBERS")) return message.reply("**You Don't Have ` BAN_MEMBERS ` Permission**");
+  if(!message.guild.member(client.user).hasPermission("BAN_MEMBERS")) return message.reply("**I Don't Have ` BAN_MEMBERS ` Permission**");
+  let user = message.mentions.users.first();
+  let reason = message.content.split(" ").slice(2).join(" ");
+  /*let b5bzlog = client.channels.find("name", "5bz-log");
+ 
+  if(!b5bzlog) return message.reply("I've detected that this server doesn't have a 5bz-log text channel.");*/
+  if (message.mentions.users.size < 1) return message.reply("**منشن شخص**");
+  if(!reason) return message.reply ("**اكتب سبب الطرد**");
+  if (!message.guild.member(user)
+  .bannable) return message.reply("**لايمكنني طرد شخص اعلى من رتبتي يرجه اعطاء البوت رتبه عالي**");
+ 
+  message.guild.member(user).ban(7, user);
+ 
+  const banembed = new Discord.RichEmbed()
+  .setAuthor(`BANNED!`, user.displayAvatarURL)
+  .setColor("RANDOM")
+  .setTimestamp()
+  .addField("**User:**",  '**[ ' + `${user.tag}` + ' ]**')
+  .addField("**By:**", '**[ ' + `${message.author.tag}` + ' ]**')
+  .addField("**Reason:**", '**[ ' + `${reason}` + ' ]**')
+  message.channel.send({
+    embed : banembed
+  })
+}
 });
 
 	 client.on('message', msg => {
