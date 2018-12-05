@@ -2,12 +2,12 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const fs = require('fs')
 const moment = require('moment')
-const data = require('data')
+
 const ms = require('ms')
 const prefix = '-';
 client.on('ready', () => {
    console.log(`----------------`);
-      console.log(`Desert Bot- Script By : Randy`);
+      console.log(`Panorama Bot- Script By : Randy`);
         console.log(`----------------`);
       console.log(`ON ${client.guilds.size} Servers '     Script By : Randy ' `);
     console.log(`----------------`);
