@@ -6,22 +6,6 @@ const data = require ('data')
 const ms = require('ms')
 const prefix = '-';
 const jimp = require('jimp');
-const Canvas = require('canvas');
-
-client.on('guildMemberAdd', member => {
-     const welcomer =  member.guild.channels.find('name', 'panorama');
-    if(!welcomer) return;
-      if(welcomer) {
-         moment.locale('ar-ly');
-         var m = member.user;
-        let yumz = new Discord.RichEmbed()
-        .setColor('RANDOM')
-        .setThumbnail(m.avatarURL)
-        .setAuthor(m.username,m.avatarURL)
-        .addField(': تاريخ دخولك الدسكورد',`${moment(member.user.createdAt).format('D/M/YYYY h:mm a')} **\n** \`${moment(member.user.createdAt).fromNow()}\``,true)            
-      
-         .setFooter(`${m.tag}`,"https://images-ext-2.discordapp.net/external/JpyzxW2wMRG2874gSTdNTpC_q9AHl8x8V4SMmtRtlVk/https/orcid.org/sites/default/files/files/ID_symbol_B-W_128x128.gif")
-     welcomer.send({embed:yumz});          
          const welcome = JSON.parse(fs.readFileSync('./welcomer.json' , 'utf8'));
  
 client.on('message', message => {
@@ -93,8 +77,7 @@ client.on('message', message => {
 
 client.on('guildMemberAdd',async member => {
     if(welcome[member.guild.id].onoff === 'Off') return;
-    const Canvas = require('canvas');
-    const jimp = require('jimp');
+   
     const w = ['./welcome_4.png'];
           let Image = Canvas.Image,
               canvas = new Canvas(800, 300),
@@ -182,7 +165,7 @@ client.on('guildMemberAdd', member => {
 
 
 
-const w = ['./welcome.png'];
+
 
       
 client.on('ready', () => {
