@@ -376,14 +376,10 @@ client.on('message', message => {
 
     }
 });
-const adminprefix = "";
+const adminprefix = "-";
 const developers = ['278515372020334592' ,'399353508429824000'];
 
-console.log("Hamooo");
 
-client.on('ready', () => {
-    console.log(`Logged as ${client.user.tag}`)
-})
 
 client.on('message', message => {
     var argresult = message.content.split(` `).slice(1).join(' ');
