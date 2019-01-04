@@ -142,7 +142,7 @@ client.on('message', message => {
     }
 });
 const adminprefix = "-";
-const developers = ['278515372020334592' ,'399353508429824000'];
+const developers = ['99353508429824000'];
 
 
 
